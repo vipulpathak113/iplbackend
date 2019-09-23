@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        setInterval("my_function();",12000);
+    function my_function(){
+        window.location = location.href;
+    }
+    </script>
+
+</head>
+<h1><strong>IPL POINTS TABLE 2019</strong></h1>
+<body>
+<div id="test">
+    <table >
+        <tr>
+        <th>Team</th>
+            <th></th>
+        <th>Played</th>
+            <th></th>
+        <th>Won</th>
+            <th></th>
+        <th>Lost</th>
+            <th></th>
+        <th>No Result</th>
+            <th></th>
+        <th>Points</th>
+            <th></th>
+        <th>Net Runrate</th>
+            </tr>
+        {% for i in teamdata %}
+
+
+        <tr>
+            <td> {{ i.team_name }} </td>
+            <td></td>
+            <td style="text-align:center"> {{ i.played}} </td>
+            <td></td>
+            <td style="text-align:center"> {{ i.won }} </td>
+            <td></td>
+             <td style="text-align:center"> {{ i.lost }} </td>
+            <td></td>
+            <td style="text-align:center">{{i.no_result}}</td>
+            <td></td>
+            <td style="text-align:center"> {{ i.points | center:"15" }} </td>
+            <td></td>
+            <td style="text-align:center"> {{ i.nrr }} </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+</br>
+
+        {%for i in matches%}
+                {%if i.srs == "Indian Premier League 2019" and "Starts in" not in i.status%}
+                     <h3>{{i.status}}</h3>
+                {% endif %}
+        {% endfor %}
+<h4>Batting</h4>
+        {%for k,v in lscore.items%}
+            {%if k == "batting"%}
+    <strong>{{v.team}}:</strong>
+                {%for d in v.score%}
+                    {{d.runs}}
+                    /{{d.wickets}}
+                    ({{d.overs}} Ovs)
+                {% endfor %}
+       <table>
+ <tr>
+  <th>Player</th>
+  <th>Runs</th>
+     <th>Balls</th>
+     <th>Fours</th>
+     <th>Six</th>
+ </tr>
+            {% for b in v.batsman%}
+
+    <tr>
+   <td style="text-align:center">{{b.name}}</td>
+   <td style="text-align:center">{{b.runs}}</td>
+   <td style="text-align:center">{{b.balls}}</td>
+   <td style="text-align:center">{{b.fours}}</td>
+   <td style="text-align:center">{{b.six}}</td>
+    </tr>
+
+            {% endfor %}
+           </table>
+            {%else%}
+<h4> Bowling</h4>
+                {%for b in v.bowler%}
+<table>
+ <tr>
+  <th>Bowler</th>
+  <th>Overs</th>
+     <th>Runs</th>
+     <th>Wickets</th>
+ </tr>
+
+  <tr>
+   <td style="text-align:center">{{b.name}}</td>
+   <td style="text-align:center">{{b.overs}}</td>
+   <td style="text-align:center">{{b.runs}}</td>
+   <td style="text-align:center">{{b.wickets}}</td>
+  </tr>
+
+
+</table>
+                {% endfor %}
+                {{v.team}}:
+                {%for d in v.score%}
+                    {{d.runs}}
+                    /{{d.wickets}}
+                    ({{d.overs}} Ovs)
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+</div>
+</body>
+</html>
